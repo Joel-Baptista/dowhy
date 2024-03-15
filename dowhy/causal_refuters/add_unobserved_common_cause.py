@@ -348,7 +348,7 @@ def _include_confounders_effect(
         rel_interval = interval[0] if kappa_t >= 0.5 else interval[1]
         new_data.loc[rel_interval <= w_random, treatment_name] = (
             1 - new_data.loc[rel_interval <= w_random, treatment_name]
-        )
+        ).astype(bool)
         for tname in treatment_name:
             if pd.api.types.is_bool_dtype(data[tname]):
                 new_data = new_data.astype({tname: "bool"}, copy=False)

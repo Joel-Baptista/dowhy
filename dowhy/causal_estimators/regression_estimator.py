@@ -148,7 +148,7 @@ class RegressionEstimator(CausalEstimator):
 
         # The model is always built on the entire data
         _, self.model = self._build_model(data)
-        coefficients = self.model.params[1:]  # first coefficient is the intercept
+        coefficients = self.model.params.iloc[1:]  # first coefficient is the intercept
         self.logger.debug("Coefficients of the fitted model: " + ",".join(map(str, coefficients)))
         self.logger.debug(self.model.summary())
 
@@ -176,7 +176,7 @@ class RegressionEstimator(CausalEstimator):
             conditional_effect_estimates = self._estimate_conditional_effects(
                 data, self._estimate_effect_fn, effect_modifier_names=self._effect_modifier_names
             )
-        intercept_parameter = self.model.params[0]
+        intercept_parameter = self.model.params.iloc[0]
         estimate = CausalEstimate(
             data=data,
             treatment_name=self._target_estimand.treatment_variable,
